@@ -130,9 +130,16 @@
   @media (max-width:860px){
     .page { width:min(100% - 24px,720px); margin-top:12px }
     .cover { min-height:280px; border-radius:24px 24px 10px 10px }
-    .profile-panel { grid-template-columns:130px minmax(0,1fr); margin:-18px 12px 0; padding:24px }
-    .avatar-wrap { width:120px; height:120px; margin-top:-62px }
-    .profile-actions { flex-direction:column; align-items:flex-start }
+    .profile-panel { grid-template-columns:130px minmax(0,1fr); margin:-18px 12px 0; padding:24px; align-items:center }
+    .avatar-wrap { width:120px; height:120px; margin-top:-62px; grid-column:1; grid-row:1 / span 4 }
+    .profile-main { display:contents }
+    .name-row { display:contents }
+    .name-row h2 { grid-column:2; grid-row:1 }
+    .profile-role { grid-column:2; grid-row:2; margin-top:0 }
+    .profile-location { grid-column:2; grid-row:3 }
+    .profile-tag { grid-column:2; grid-row:4 }
+    .contact-socials { grid-column:1 / -1; grid-row:5; justify-content:flex-start }
+    .profile-actions { grid-column:1 / -1; grid-row:6; flex-direction:row; flex-wrap:wrap; margin-top:0 }
     .product-grid { grid-template-columns:1fr }
     .mini-grid { grid-template-columns:1fr 1fr }
     .section-heading { align-items:start; flex-direction:column; gap:6px }
@@ -152,11 +159,10 @@
     .profile-role { font-size:.82rem }
     .profile-location { font-size:.76rem }
     .profile-tag { font-size:.85rem }
-    .name-row { gap:8px }
-    .contact-socials { gap:8px }
-    .contact-icon { width:36px; height:36px }
-    .profile-actions { flex-direction:column; align-items:stretch }
-    .profile-actions .pill { width:100%; white-space:normal; font-size:.95rem; padding:12px 10px }
+    .contact-socials { grid-column:1 / -1; grid-row:5; gap:8px; justify-content:center }
+    .contact-icon { width:43px; height:43px }
+    .profile-actions { grid-column:1 / -1; grid-row:6; flex-direction:row; flex-wrap:nowrap; margin-top:0 }
+    .profile-actions .pill { flex:1 1 0; width:auto; white-space:normal; padding:11px 10px; font-size:.88rem }
     .mini-grid { grid-template-columns:1fr }
     .steps-grid { grid-template-columns:1fr 1fr; gap:12px }
     .steps-grid .mini-card { padding:14px }
