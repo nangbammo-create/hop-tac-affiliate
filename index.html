@@ -368,6 +368,16 @@
     </div>
   </div>
 
+  <!-- Đăng nhập Quản trị -->
+  <section class="section" id="adminLogin" hidden>
+    <div class="section-heading"><h3>Đăng nhập Quản trị</h3><p>Chỉ Ba mới xem được bảng đơn</p></div>
+    <form id="adminLoginForm" novalidate>
+      <div class="field"><label for="adminEmail">Email</label><input id="adminEmail" type="email" autocomplete="username" placeholder="Email" required></div>
+      <div class="field"><label for="adminPass">Mật khẩu</label><input id="adminPass" type="password" autocomplete="current-password" placeholder="Mật khẩu" required></div>
+      <p class="form-error" id="adminLoginError" hidden></p>
+      <div class="modal-actions"><button class="pill" type="submit">Đăng nhập →</button></div>
+    </form>
+  </section>
   <!-- Bảng quản trị: dashboard đơn đăng ký -->
   <section class="section" id="adminSection" hidden>
     <div class="section-heading"><h3>Bảng quản trị</h3><p>Đơn đăng ký Partner</p></div>
@@ -375,6 +385,7 @@
     <div class="admin-tools">
       <button type="button" id="exportCsv">⬇ Xuất file CSV</button>
       <button type="button" id="hideAdmin">Ẩn bảng</button>
+      <button type="button" id="adminLogout">Đăng xuất</button>
       <button type="button" class="danger" id="clearRegs">Xóa tất cả đơn</button>
     </div>
     <div style="overflow-x:auto">
@@ -397,6 +408,37 @@
   var errEl = document.getElementById('regError');
   var okEl = document.getElementById('regSuccess');
   var adminSection = document.getElementById('adminSection');
+  var loginSection = document.getElementById('adminLogin');
+  var loginForm = document.getElementById('adminLoginForm');
+  var loginErr = document.getElementById('adminLoginError');
+  var AUTH_KEY = 'nb_admin_auth';
+  var ADMIN_EMAIL = 'nangbammo@gmail.com';
+  var ADMIN_PASS = 'Admin123456@';
+  function isAuthed(){ try { return sessionStorage.getItem(AUTH_KEY) === '1'; } catch(e){ return false; } }
+  function openAdmin(){
+    if(isAuthed()){ showAdmin(); return; }
+    adminSection.hidden = true;
+    loginErr.hidden = true;
+    loginSection.hidden = false;
+    loginSection.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('adminEmail').focus();
+  }
+  loginForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var em = document.getElementById('adminEmail').value.trim().toLowerCase();
+    var pw = document.getElementById('adminPass').value;
+    if(em === ADMIN_EMAIL && pw === ADMIN_PASS){
+      try { sessionStorage.setItem(AUTH_KEY, '1'); } catch(e){}
+      loginForm.reset();
+      loginSection.hidden = true;
+      showAdmin();
+    } else {
+      loginErr.textContent = 'Email hoặc mật khẩu không đúng.';
+      loginErr.hidden = false;
+      document.getElementById('adminPass').value = '';
+      document.getElementById('adminPass').focus();
+    }
+  });
   var tbody = document.getElementById('regTableBody');
   var countEl = document.getElementById('regCount');
   var emptyEl = document.getElementById('regEmpty');
@@ -466,9 +508,13 @@
     adminSection.scrollIntoView({ behavior: 'smooth' });
   }
   document.getElementById('adminLink').addEventListener('click', function(e){
-    e.preventDefault(); showAdmin();
+    e.preventDefault(); openAdmin();
   });
   document.getElementById('hideAdmin').addEventListener('click', function(){ adminSection.hidden = true; });
+  document.getElementById('adminLogout').addEventListener('click', function(){
+    try { sessionStorage.removeItem(AUTH_KEY); } catch(e){}
+    adminSection.hidden = true;
+  });
   document.getElementById('exportCsv').addEventListener('click', function(){
     var list = loadRegs();
     var rows = [['STT','Ho ten','So dien thoai','Gmail','Sinh nhat','Ngay dang ky']];
@@ -498,7 +544,7 @@
     saveRegs(list); renderRegs();
   });
   renderRegs();
-  if(location.hash === '#admin') showAdmin();
+  if(location.hash === '#admin') openAdmin();
 })();
 </script>
 </body>
