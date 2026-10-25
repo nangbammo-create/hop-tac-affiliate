@@ -174,8 +174,16 @@
     .steps-grid .mini-card h4 { font-size:1.05rem }
     .steps-grid .mini-card p { font-size:.85rem }
     .audience-grid { grid-template-columns:1fr }
+    #hoa-hong table { table-layout:fixed }
+    #hoa-hong th, #hoa-hong td { width:50% }
+    #hoa-hong td .amt { white-space:normal }
+    .profile-panel { gap:8px 16px }
+    .name-row h2 { margin-bottom:2px }
+    .profile-location { margin-top:4px }
+    .profile-tag { margin-top:4px }
   }
   .audience-grid { grid-template-columns:1fr 1fr }
+  .amt-note { display:block; font-size:.85rem; color:var(--ink-soft); font-weight:600; white-space:normal }
 </style>
 </head>
 <body>
@@ -260,8 +268,10 @@
       <table>
         <thead><tr><th>Sản phẩm</th><th>Hoa hồng cho Partner</th></tr></thead>
         <tbody>
-                              <tr><td><b>Chương trình Build Tool</b></td><td><span class="amt">30%</span></td></tr>
-          <tr><td><b>App Tạo Video VIP Pro</b></td><td><span class="amt">50% / lượt giới thiệu thành công</span></td></tr>
+                              <tr><td><b>Gói trải nghiệm 49.000đ</b></td><td><span class="amt">20.000đ / đơn</span></td></tr>
+          <tr><td><b>Tài khoản AI</b></td><td><span class="amt">50.000đ – 100.000đ / đơn</span></td></tr>
+          <tr><td><b>Chương trình Build Tool</b></td><td><span class="amt">30%</span></td></tr>
+          <tr><td><b>App Tạo Video VIP Pro</b></td><td><span class="amt">50%</span><br><span class="amt-note">(lượt giới thiệu thành công)</span></td></tr>
         </tbody>
       </table>
     </div>
